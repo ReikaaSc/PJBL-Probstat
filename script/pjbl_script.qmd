@@ -1,0 +1,77 @@
+---
+title: "Pengaruh Penetrasi Akses Internet terhadap Indeks Pembangunan Manusia (IPM): Pendekatan Probabilitas dan Analisis Korelasi"
+author: 
+  - "Alfitra Mumtaz Hanafi (J0403251058)"
+  - "Ahmad Abian Hakim (J0403251069)"
+  - "Rheika Muhammad Dzikrulhakim (J0403251068)"
+  - "Zaky Alnadif (J0403251126)"
+  - "Natasha Umaiza (J0403251046)"
+  - "Hilannisa Nuraini Al'Basr (J0403251022)"
+date: today
+lang: id-ID
+
+format: 
+  html:
+    css: style.css
+    fig-width: 8
+    fig-height: 4
+    code-fold: true
+---
+
+# BAB I: PENDAHULUAN
+
+## Latar Belakang
+
+Dalam era modern, definisi infrastruktur pembangunan tidak lagi terbatas pada pembangunan fisik, melainkan telah berekspansi ke infrastruktur digital. Akses internet kini menjadi kebutuhan fundamental yang bertindak sebagai katalisator perputaran ekonomi, pemerataan pendidikan, dan akses informasi medis. Kesenjangan digital (*digital divide*) sering kali menjadi akar masalah ketimpangan kesejahteraan antarwilayah. Wilayah dengan penetrasi internet yang rendah cenderung mengalami stagnasi dalam peningkatan kualitas Sumber Daya Manusia (SDM). Oleh karena itu, penelitian ini bertujuan untuk mengevaluasi secara statistik probabilitas dan signifikansi korelasi ketersediaan akses internet terhadap Indeks Pembangunan Manusia (IPM) menggunakan bahasa pemrograman R.
+
+## Tujuan Analisis
+
+Analisis ini memiliki tujuan antara lain:
+
+1.  Mengidentifikasi dan menangani *missing value* serta *outlier* pada dataset pembangunan wilayah, khususnya pada variabel akses internet dan IPM.
+2.  Melakukan statistika deskriptif untuk memetakan persebaran data digitalisasi dan kesejahteraan penduduk.
+3.  Membangun visualisasi data yang informatif untuk melihat tren sebaran antarvariabel secara grafis.
+4.  Menguji distribusi probabilitas (normalitas) pada data IPM wilayah.
+5.  Membuktikan secara statistik hipotesis korelasi antara penetrasi akses internet dengan skor IPM.
+
+# BAB II: METODOLOGI
+
+## Dataset
+
+Penelitian ini menggunakan dataset `pembangunan_wilayah_missing_outlier_2.csv` yang merepresentasikan kondisi indikator pembangunan makro di berbagai wilayah. Fokus pengujian dibatasi pada variabel independen `akses_internet` (persentase ketersediaan fasilitas internet) dan variabel dependen `ipm` (Indeks Pembangunan Manusia). Dataset ini secara inheren memiliki *missing value* dan *outlier* yang disimulasikan untuk menguji ketahanan model pra-pemrosesan data sebelum uji hipotesis dieksekusi.
+
+## Tools yang Digunakan
+
+Seluruh tahapan pembersihan dan pengujian data dieksekusi menggunakan bahasa pemrograman **R**. Dokumen ini disusun menggunakan **Quarto**, sebuah sistem penerbitan saintifik yang memungkinkan integrasi narasi teks dan eksekusi kode (*reproducible research*) secara instan ke dalam format PDF. Pustaka tambahan seperti `ggplot2` diimplementasikan untuk membangun visualisasi grafis yang komprehensif.
+
+## Metode Analisis
+
+Pendekatan statistik yang diterapkan meliputi:
+
+- **Penanganan Data:** Imputasi data kosong diselesaikan menggunakan *Median Imputation* untuk meminimalisasi efek distorsi akibat nilai ekstrem, sementara *outlier* dideteksi melalui batas *Interquartile Range* (IQR).
+- **Uji Distribusi Probabilitas:** Pemenuhan asumsi normalitas data diuji melalui *Shapiro-Wilk Test*.
+- **Uji Korelasi Hipotesis:** Pengujian signifikansi menggunakan *Pearson Correlation Test* guna mengukur kekuatan dan arah hubungan antara variabel bebas dan terikat.
+
+# BAB III: HASIL DAN PEMBAHASAN
+
+## Pemahaman dan Pembersihan Dataset
+
+Tahap pertama adalah memuat dataset ke dalam memori lingkungan kerja dan memindai anomali data.
+
+\`\`\`{r} #\| label: load-and-clean #\| warning: false #\| message: false
+
+# Membaca dataset
+
+data \<- read.csv("../dataset/pembangunan_wilayah_missing_outlier_2.csv")
+
+# Pengecekan Missing Value Awal
+
+na_internet_awal \<- sum(is.na(data$akses_internet))
+na_ipm_awal <- sum(is.na(data$ipm))
+
+cat("Jumlah NA Akses Internet sebelum diolah:", na_internet_awal, "\n") cat("Jumlah NA IPM sebelum diolah:", na_ipm_awal, "\n")
+
+# Penanganan Missing Value menggunakan Median Imputation
+
+data$akses_internet[is.na(data$akses_internet)\] \<- median(data$akses_internet, na.rm = TRUE)
+data$ipm\[is.na(data$ipm)] <- median(data$ipm, na.rm = TRUE)
