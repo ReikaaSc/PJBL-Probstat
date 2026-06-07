@@ -38,7 +38,7 @@ Analisis ini memiliki tujuan antara lain:
 
 ## Dataset
 
-Penelitian ini menggunakan dataset `pembangunan_wilayah_missing_outlier_2.csv` yang merepresentasikan kondisi indikator pembangunan makro di berbagai wilayah. Fokus pengujian dibatasi pada variabel independen `akses_internet` (persentase ketersediaan fasilitas internet) dan variabel dependen `ipm` (Indeks Pembangunan Manusia). Dataset ini secara inheren memiliki *missing value* dan *outlier* yang disimulasikan untuk menguji ketahanan model pra-pemrosesan data sebelum uji hipotesis dieksekusi.
+Penelitian ini menggunakan dataset `pembangunan_wilayah_missing_outlier.csv` yang merepresentasikan kondisi indikator pembangunan makro di berbagai wilayah. Fokus pengujian dibatasi pada variabel independen `akses_internet` (persentase ketersediaan fasilitas internet) dan variabel dependen `ipm` (Indeks Pembangunan Manusia). Dataset ini secara inheren memiliki *missing value* dan *outlier* yang disimulasikan untuk menguji ketahanan model pra-pemrosesan data sebelum uji hipotesis dieksekusi.
 
 ## Tools yang Digunakan
 
@@ -48,30 +48,130 @@ Seluruh tahapan pembersihan dan pengujian data dieksekusi menggunakan bahasa pem
 
 Pendekatan statistik yang diterapkan meliputi:
 
-- **Penanganan Data:** Imputasi data kosong diselesaikan menggunakan *Median Imputation* untuk meminimalisasi efek distorsi akibat nilai ekstrem, sementara *outlier* dideteksi melalui batas *Interquartile Range* (IQR).
-- **Uji Distribusi Probabilitas:** Pemenuhan asumsi normalitas data diuji melalui *Shapiro-Wilk Test*.
-- **Uji Korelasi Hipotesis:** Pengujian signifikansi menggunakan *Pearson Correlation Test* guna mengukur kekuatan dan arah hubungan antara variabel bebas dan terikat.
+- **Penanganan Data:** Imputasi data kosong diselesaikan menggunakan Median Imputation untuk meminimalisasi efek distorsi akibat nilai ekstrem. Karena fokus penelitian adalah menguji hubungan antara **akses internet dan IPM**, analisis selanjutnya dilakukan menggunakan data **hasil imputasi** tanpa menghapus observasi yang terindikasi sebagai nilai ekstrem.
 
-# BAB III: HASIL DAN PEMBAHASAN
+# BAB III. HASIL DAN PEMBAHASAN
 
-## Pemahaman dan Pembersihan Dataset
+## 3.1 Gambaran Umum Analisis
 
-Tahap pertama adalah memuat dataset ke dalam memori lingkungan kerja dan memindai anomali data.
+Penelitian ini bertujuan untuk mengkaji hubungan antara tingkat penetrasi akses internet dengan Indeks Pembangunan Manusia (IPM). Untuk memperoleh hasil yang valid, analisis dilakukan melalui beberapa tahapan, yaitu pembersihan data, analisis deskriptif, visualisasi hubungan antarvariabel, pengujian asumsi normalitas, dan pengujian korelasi.
 
-\`\`\`{r} #\| label: load-and-clean #\| warning: false #\| message: false
+Tahap pembersihan data dilakukan terlebih dahulu karena dataset mengandung missing value yang berpotensi memengaruhi hasil analisis statistik. Setelah data dinyatakan bersih, dilakukan eksplorasi data untuk memperoleh gambaran umum karakteristik variabel yang diteliti. Selanjutnya, dilakukan pengujian statistik guna mengetahui apakah terdapat hubungan yang signifikan antara akses internet dan IPM.
 
+## 3.2 Pembersihan Data dan Penanganan Missing Value
+
+Sebelum melakukan analisis lebih lanjut, diperlukan pemeriksaan kualitas data untuk memastikan tidak terdapat nilai yang hilang (missing value) pada variabel penelitian. Nilai yang hilang dapat menyebabkan bias dalam perhitungan statistik sehingga perlu ditangani terlebih dahulu.
+
+Pada penelitian ini digunakan metode Median Imputation, yaitu menggantikan nilai yang hilang dengan nilai median dari variabel yang bersangkutan. Metode ini dipilih karena median relatif lebih tahan terhadap pengaruh nilai ekstrem dibandingkan rata-rata (mean).
+
+```{r}
 # Membaca dataset
+data <- read.csv("../dataset/pembangunan_wilayah_missing_outlier.csv")
 
-data \<- read.csv("../dataset/pembangunan_wilayah_missing_outlier_2.csv")
-
-# Pengecekan Missing Value Awal
-
-na_internet_awal \<- sum(is.na(data$akses_internet))
+# Menghitung jumlah missing value
+na_internet_awal <- sum(is.na(data$akses_internet))
 na_ipm_awal <- sum(is.na(data$ipm))
 
-cat("Jumlah NA Akses Internet sebelum diolah:", na_internet_awal, "\n") cat("Jumlah NA IPM sebelum diolah:", na_ipm_awal, "\n")
+cat("Jumlah NA Akses Internet sebelum diolah:", na_internet_awal, "\n")
+cat("Jumlah NA IPM sebelum diolah:", na_ipm_awal, "\n")
 
-# Penanganan Missing Value menggunakan Median Imputation
+# Median Imputation
+data$akses_internet[is.na(data$akses_internet)] <- median(data$akses_internet, na.rm = TRUE)
+data$ipm[is.na(data$ipm)] <- median(data$ipm, na.rm = TRUE)
+```
 
-data$akses_internet[is.na(data$akses_internet)\] \<- median(data$akses_internet, na.rm = TRUE)
-data$ipm\[is.na(data$ipm)] <- median(data$ipm, na.rm = TRUE)
+Berdasarkan hasil pemeriksaan, ditemukan sejumlah data yang tidak memiliki nilai pada variabel akses internet maupun IPM. Seluruh nilai yang hilang kemudian digantikan menggunakan median masing-masing variabel sehingga dataset menjadi lengkap dan siap digunakan untuk tahap analisis berikutnya.
+
+## 3.3 Analisis Deskriptif
+
+Setelah proses pembersihan data selesai, dilakukan analisis deskriptif untuk memperoleh gambaran umum mengenai karakteristik data. Analisis ini bertujuan mengetahui ukuran pemusatan dan penyebaran data seperti nilai minimum, maksimum, median, rata-rata, dan kuartil.
+
+```{r}
+cat("Ringkasan Statistik Akses Internet:\n")
+summary(data$akses_internet)
+
+cat("\nRingkasan Statistik IPM:\n")
+summary(data$ipm)
+```
+
+Hasil statistik deskriptif menunjukkan sebaran nilai akses internet dan IPM pada seluruh wilayah yang diamati. Informasi ini memberikan gambaran awal mengenai kondisi data sebelum dilakukan analisis hubungan antarvariabel. Selain itu, statistik deskriptif juga membantu mengidentifikasi adanya ketimpangan atau variasi yang cukup besar antarwilayah.
+
+## 3.4 Visualisasi Hubungan Akses Internet dan IPM
+
+Untuk memperoleh gambaran yang lebih intuitif mengenai hubungan kedua variabel, dilakukan visualisasi menggunakan scatter plot. Visualisasi ini memungkinkan pengamatan pola hubungan secara langsung melalui persebaran titik data.
+
+```{r}
+library(ggplot2)
+
+ggplot(data, aes(x = akses_internet, y = ipm)) +
+  geom_point(color = "#2980b9", alpha = 0.5) +
+  geom_smooth(method = "lm", color = "#e74c3c", se = TRUE) +
+  labs(
+    title = "Hubungan Akses Internet dan IPM",
+    x = "Akses Internet (%)",
+    y = "IPM"
+  ) +
+  theme_minimal()
+```
+
+Gambar di atas menunjukkan persebaran nilai IPM terhadap tingkat akses internet pada seluruh wilayah yang diamati. Berdasarkan persebaran titik-titik data, tidak terlihat pola linear yang kuat antara kedua variabel. Titik-titik cenderung menyebar secara acak dan garis regresi memiliki kemiringan yang sangat kecil. Temuan awal ini mengindikasikan bahwa hubungan antara akses internet dan IPM kemungkinan lemah, sehingga perlu dibuktikan lebih lanjut melalui pengujian statistik menggunakan uji korelasi Pearson.
+
+## 3.5 Uji Normalitas
+
+Sebelum melakukan uji korelasi Pearson, perlu dipastikan bahwa data memenuhi asumsi normalitas. Oleh karena itu, dilakukan Uji Shapiro-Wilk pada variabel IPM.
+
+```{r}
+shapiro_test <- shapiro.test(data$ipm)
+
+cat("Hasil Uji Normalitas:\n")
+print(shapiro_test)
+```
+
+Pada pengujian ini digunakan hipotesis sebagai berikut:
+
+- H₀ : Data berdistribusi normal.
+
+- H₁ : Data tidak berdistribusi normal.
+
+Berdasarkan hasil pengujian diperoleh nilai p-value \< 0,05 sehingga H₀ ditolak. Dengan demikian, data IPM tidak berdistribusi normal.
+
+Namun demikian, penelitian ini tetap menggunakan uji korelasi Pearson karena jumlah sampel yang digunakan sangat besar (sekitar 2.500 observasi). Pada ukuran sampel yang besar, penyimpangan kecil dari distribusi normal sering kali menyebabkan hasil uji Shapiro-Wilk menjadi signifikan. Oleh karena itu, uji Pearson masih digunakan untuk mengevaluasi kecenderungan hubungan linear antara kedua variabel.
+
+## 3.6 Uji Korelasi Pearson
+
+Tahap terakhir adalah menguji hubungan antara penetrasi akses internet dan IPM menggunakan Uji Korelasi Pearson. Pengujian ini dilakukan untuk mengetahui apakah terdapat hubungan yang signifikan antara kedua variabel serta mengukur kekuatan hubungan tersebut.
+
+```{r}
+korelasi_test <- cor.test(
+  data$akses_internet,
+  data$ipm,
+  method = "pearson"
+)
+
+print(korelasi_test)
+```
+
+Hipotesis yang digunakan adalah:
+
+- H₀ : Tidak terdapat hubungan yang signifikan antara akses internet dan IPM.
+- H₁ : Terdapat hubungan yang signifikan antara akses internet dan IPM.
+
+Berdasarkan hasil pengujian diperoleh nilai koefisien korelasi (r) sebesar 0,0021 dengan p-value sebesar 0,916.
+
+Nilai koefisien korelasi yang sangat mendekati nol menunjukkan bahwa hubungan linear antara akses internet dan IPM hampir tidak ada. Selain itu, nilai p-value yang jauh lebih besar dari 0,05 menunjukkan bahwa hubungan tersebut tidak signifikan secara statistik.
+
+Dengan demikian, H₀ tidak ditolak sehingga tidak terdapat bukti yang cukup untuk menyatakan adanya hubungan yang signifikan antara tingkat akses internet dan IPM pada dataset yang dianalisis.
+
+Hasil ini menunjukkan bahwa variasi IPM pada wilayah yang diamati kemungkinan dipengaruhi oleh faktor-faktor lain di luar akses internet, seperti tingkat pendidikan, pendapatan masyarakat, kualitas layanan kesehatan, atau variabel pembangunan lainnya.
+
+## 3.7 Ringkasan Hasil Analisis
+
+Berdasarkan seluruh tahapan analisis yang telah dilakukan, diperoleh beberapa temuan utama sebagai berikut:
+
+1.  Ditemukan data yang hilang (missing value) pada variabel akses internet dan IPM yang kemudian berhasil ditangani menggunakan metode Median Imputation.
+2.  Analisis deskriptif menunjukkan adanya variasi nilai akses internet dan IPM antarwilayah yang diamati.
+3.  Visualisasi scatter plot tidak menunjukkan pola hubungan linear yang kuat antara akses internet dan IPM.
+4.  Hasil Uji Shapiro-Wilk menunjukkan bahwa data IPM tidak berdistribusi normal (p-value \< 0,05).
+5.  Hasil Uji Korelasi Pearson menghasilkan koefisien korelasi sebesar 0,0021 dengan p-value sebesar 0,916, sehingga tidak ditemukan hubungan yang signifikan antara akses internet dan IPM pada dataset yang dianalisis.
+
+Secara keseluruhan, penelitian ini menunjukkan bahwa tingkat akses internet tidak memiliki hubungan linear yang signifikan dengan Indeks Pembangunan Manusia pada data yang digunakan dalam penelitian.
