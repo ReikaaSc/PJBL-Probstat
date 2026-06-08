@@ -252,6 +252,7 @@ Pada pengujian ini digunakan hipotesis sebagai berikut:
 
 - H1 : Data tidak berdistribusi normal.
 
+
 Berdasarkan hasil pengujian diperoleh nilai p-value \< 0,05 sehingga H0 ditolak. Dengan demikian, data IPM tidak berdistribusi normal.
 
 Namun demikian, penelitian ini tetap menggunakan uji korelasi Pearson karena jumlah sampel yang digunakan sangat besar (sekitar 2.500 observasi). Pada ukuran sampel yang besar, penyimpangan kecil dari distribusi normal sering kali menyebabkan hasil uji Shapiro-Wilk menjadi signifikan. Oleh karena itu, uji Pearson masih digunakan untuk mengevaluasi kecenderungan hubungan linear antara kedua variabel.
