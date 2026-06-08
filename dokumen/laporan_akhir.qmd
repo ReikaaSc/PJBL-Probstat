@@ -411,16 +411,13 @@ Hasil ini menunjukkan bahwa akses internet tidak memiliki hubungan linear yang s
 
 ## 4.1 Kesimpulan Utama
 
-Berdasarkan seluruh tahapan analisis yang telah dilakukan, diperoleh beberapa kesimpulan utama sebagai berikut:
+Berdasarkan hasil analisis, missing value pada variabel `akses_internet` dan `ipm` berhasil ditangani menggunakan Median Imputation. Analisis deskriptif menunjukkan bahwa nilai akses internet dan IPM memiliki variasi antarwilayah. Lima visualisasi yang dibuat juga membantu memperlihatkan kondisi missing value, catatan data, pola hubungan, distribusi IPM, serta kemungkinan nilai ekstrem.
 
-1. Pemeriksaan awal menunjukkan adanya missing value pada beberapa variabel dalam dataset.
-2. Karena fokus analisis adalah akses internet dan IPM, imputasi missing value dilakukan pada variabel `akses_internet` dan `ipm` menggunakan median.
-3. Pemeriksaan outlier dilakukan melalui kolom `catatan_data` dan didukung dengan visualisasi boxplot.
-4. Lima visualisasi data telah dibuat untuk membantu membaca kondisi missing value, catatan data, hubungan antarvariabel, distribusi IPM, dan sebaran nilai ekstrem.
-5. Scatter plot menunjukkan bahwa hubungan antara akses internet dan IPM tidak membentuk pola linear yang kuat.
-6. Histogram IPM menunjukkan bahwa distribusi data perlu diperiksa lebih lanjut melalui uji normalitas.
-7. Hasil uji Shapiro-Wilk menunjukkan bahwa data IPM tidak berdistribusi normal.
-8. Hasil uji korelasi Pearson menghasilkan koefisien korelasi sebesar 0,0021 dengan p-value sebesar 0,916, sehingga tidak ditemukan hubungan linear yang signifikan antara akses internet dan IPM.
+Hasil scatter plot menunjukkan bahwa hubungan antara akses internet dan IPM tidak membentuk pola linear yang kuat. Selain itu, uji Shapiro-Wilk menunjukkan bahwa data IPM tidak berdistribusi normal karena p-value kurang dari 0,05.
+
+Pada uji korelasi Pearson, diperoleh koefisien korelasi sebesar 0,0021 dengan p-value sebesar 0,916. Nilai tersebut menunjukkan bahwa hubungan linear antara akses internet dan IPM sangat lemah dan tidak signifikan secara statistik.
+
+Secara keseluruhan, tingkat akses internet tidak memiliki hubungan linear yang signifikan dengan IPM pada dataset yang digunakan dalam penelitian ini.
 
 ## 4.2 Insight
 
