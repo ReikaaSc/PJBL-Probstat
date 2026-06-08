@@ -87,7 +87,55 @@ Analisis ini diharapkan dapat memberikan gambaran mengenai proses pengolahan dat
 
 ## 2.1 Dataset
 
-Penelitian ini menggunakan dataset `pembangunan_wilayah_missing_outlier.csv` yang merepresentasikan kondisi indikator pembangunan makro di berbagai wilayah. Fokus pengujian dibatasi pada variabel independen `akses_internet` (persentase ketersediaan fasilitas internet) dan variabel dependen `ipm` (Indeks Pembangunan Manusia). Dataset ini secara inheren memiliki *missing value* dan *outlier* yang disimulasikan untuk menguji ketahanan model pra-pemrosesan data sebelum uji hipotesis dieksekusi.
+Penelitian ini menggunakan dataset `pembangunan_wilayah_missing_outlier.csv` yang merepresentasikan kondisi indikator pembangunan makro di berbagai wilayah kabupaten/kota di Indonesia. Dataset ini mencakup dimensi ekonomi, sosial, dan infrastruktur wilayah.
+
+Fokus pengujian utama dibatasi pada dua variabel, yaitu `akses_internet` sebagai variabel independen dan `ipm` sebagai variabel dependen. Variabel `akses_internet` menunjukkan persentase ketersediaan akses internet, sedangkan `ipm` menunjukkan nilai Indeks Pembangunan Manusia. Dataset ini juga sengaja dibuat memiliki *missing value* dan *outlier* agar proses pembersihan data dapat dilakukan sebelum analisis statistik.
+
+Untuk memahami struktur dataset, dilakukan pengecekan menggunakan beberapa fungsi dasar R sebagai berikut.
+
+```{r}
+# Mengatur lebar output agar tidak melebar di PDF
+options(width = 65)
+
+# Membaca dataset
+data <- read.csv("../dataset/pembangunan_wilayah_missing_outlier.csv")
+
+# Menampilkan jumlah baris dan kolom dataset
+cat("Jumlah baris dan kolom dataset:\n")
+print(dim(data))
+
+# Menampilkan nama variabel dalam dataset
+cat("\nNama variabel dalam dataset:\n")
+print(names(data))
+
+# Melihat struktur dan tipe data setiap variabel
+cat("\nStruktur dataset:\n")
+str(data, vec.len = 1, give.attr = FALSE)
+
+# Menampilkan beberapa data awal pada variabel utama
+cat("\nContoh data awal pada variabel utama:\n")
+head(data[, c("wilayah", "provinsi", "tahun", "akses_internet", "ipm", "catatan_data")])
+```
+
+Berdasarkan hasil pengecekan, dataset terdiri dari 2.500 observasi dan 13 variabel. Variabel dalam dataset terdiri atas variabel kategorik seperti `wilayah`, `provinsi`, dan `catatan_data`, serta variabel numerik seperti `tahun`, `pdrb_perkapita`, `kemiskinan`, `pengangguran`, `ipm`, `harapan_hidup`, `rata_lama_sekolah`, `akses_internet`, `jalan_baik`, dan `air_bersih`.
+
+Berikut adalah ringkasan arti setiap variabel dalam dataset:
+
+| Variabel | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `wilayah` | Kategorik | Identitas nama kabupaten atau kota |
+| `provinsi` | Kategorik | Provinsi tempat wilayah administratif berada |
+| `tahun` | Numerik | Tahun pengamatan data |
+| `pdrb_perkapita` | Numerik | Produk Domestik Regional Bruto per kapita |
+| `kemiskinan` | Numerik | Persentase penduduk miskin |
+| `pengangguran` | Numerik | Tingkat pengangguran terbuka |
+| `ipm` | Numerik | Indeks Pembangunan Manusia |
+| `harapan_hidup` | Numerik | Angka harapan hidup penduduk |
+| `rata_lama_sekolah` | Numerik | Rata-rata lama sekolah penduduk |
+| `akses_internet` | Numerik | Persentase akses internet |
+| `jalan_baik` | Numerik | Persentase jalan dalam kondisi baik |
+| `air_bersih` | Numerik | Persentase akses air bersih |
+| `catatan_data` | Kategorik | Penanda kualitas data seperti Normal, Missing Value, dan Outlier |
 
 ## 2.2 Tools yang Digunakan
 
