@@ -1,43 +1,87 @@
 ---
-title: |
-  Pengaruh Penetrasi Akses Internet terhadap  
-  Indeks Pembangunan Manusia (IPM):  
-  Pendekatan Probabilitas dan Analisis Korelasi
-
-subtitle: "Laporan Project Akhir Probabilitas dan Statistika"
-
-author:
-  - "Alfitra Mumtaz Hanafi (J0403251058)"
-  - "Ahmad Abian Hakim (J0403251069)"
-  - "Rheika Muhammad Dzikrulhakim (J0403251068)"
-  - "Zaky Alnadif (J0403251126)"
-  - "Natasha Umaiza (J0403251046)"
-  - "Hilannisa Nuraini Al'Basr (J0403251022)"
-
-date: "8 Juni 2026"
+title: ""
+author: ""
+date: ""
 lang: id-ID
 
 format:
   pdf:
     fig-width: 8
     fig-height: 4
+    number-sections: false
+    toc: false
+    colorlinks: false
 ---
+\begin{titlepage}
+\begin{center}
+
+\vspace*{1cm}
+
+{\Large \textbf{PENGARUH PENETRASI AKSES INTERNET TERHADAP}}\\
+{\Large \textbf{INDEKS PEMBANGUNAN MANUSIA (IPM):}}\\
+{\Large \textbf{PENDEKATAN PROBABILITAS DAN ANALISIS KORELASI}}\\[1.2cm]
+
+\includegraphics[width=3.5cm]{../gambar/ipb.png}\\[1cm]
+
+\textbf{Mata Kuliah:}\\
+Probabilitas dan Statistika\\[0.8cm]
+
+\textbf{Disusun oleh:}\\[0.3cm]
+Alfitra Mumtaz Hanafi (J0403251058)\\
+Ahmad Abian Hakim (J0403251069)\\
+Rheika Muhammad Dzikrulhakim (J0403251068)\\
+Zaky Alnadif (J0403251126)\\
+Natasha Umaiza (J0403251046)\\
+Hilannisa Nuraini Al'Basr (J0403251022)\\[1cm]
+
+\textbf{TEKNOLOGI REKAYASA PERANGKAT LUNAK}\\
+\textbf{SEKOLAH VOKASI}\\
+\textbf{IPB UNIVERSITY}\\
+\textbf{BOGOR}\\
+\textbf{2026}
+
+\end{center}
+\end{titlepage}
+
+\newpage
+
+\renewcommand{\contentsname}{Daftar Isi}
+\tableofcontents
+
+\newpage
+
 
 # BAB I: PENDAHULUAN
 
 ## 1.1 Latar Belakang
 
-Dalam era modern, definisi infrastruktur pembangunan tidak lagi terbatas pada pembangunan fisik, melainkan telah berekspansi ke infrastruktur digital. Akses internet kini menjadi kebutuhan fundamental yang bertindak sebagai katalisator perputaran ekonomi, pemerataan pendidikan, dan akses informasi medis. Kesenjangan digital (*digital divide*) sering kali menjadi akar masalah ketimpangan kesejahteraan antarwilayah. Wilayah dengan penetrasi internet yang rendah cenderung mengalami stagnasi dalam peningkatan kualitas Sumber Daya Manusia (SDM). Oleh karena itu, penelitian ini bertujuan untuk mengevaluasi secara statistik probabilitas dan signifikansi korelasi ketersediaan akses internet terhadap Indeks Pembangunan Manusia (IPM) menggunakan bahasa pemrograman R.
+Dalam era modern, definisi infrastruktur pembangunan tidak lagi terbatas pada pembangunan fisik, melainkan telah berekspansi ke infrastruktur digital. Akses internet kini menjadi salah satu fasilitas penting yang berperan dalam mendukung akses informasi, pendidikan, layanan publik, dan aktivitas ekonomi masyarakat. Kesenjangan digital (*digital divide*) sering kali menjadi salah satu faktor yang berkaitan dengan ketimpangan pembangunan antarwilayah (Ndubuisi et al., 2021).
 
-## 1.2 Tujuan Analisis
+Indeks Pembangunan Manusia (IPM) digunakan untuk melihat capaian pembangunan manusia dari aspek kesehatan, pendidikan, dan standar hidup layak. Konsep ini menunjukkan bahwa pembangunan tidak hanya diukur dari pertumbuhan ekonomi, tetapi juga dari kualitas hidup masyarakat secara lebih luas (UNDP, 2022). Oleh karena itu, analisis ini dilakukan untuk melihat apakah tingkat akses internet memiliki hubungan linear yang signifikan dengan IPM pada dataset pembangunan wilayah yang digunakan.
+
+## 1.2 Rumusan Masalah
+
+Berdasarkan latar belakang tersebut, rumusan masalah dalam analisis ini adalah:
+
+1. Bagaimana kondisi missing value dan outlier pada dataset pembangunan wilayah?
+2. Bagaimana gambaran statistik deskriptif variabel akses internet dan IPM?
+3. Bagaimana pola visual hubungan antara akses internet dan IPM?
+4. Apakah data IPM berdistribusi normal?
+5. Apakah terdapat hubungan linear yang signifikan antara akses internet dan IPM?
+
+## 1.3 Tujuan Analisis
 
 Analisis ini memiliki tujuan antara lain:
 
-1.  Mengidentifikasi dan menangani *missing value* serta *outlier* pada dataset pembangunan wilayah, khususnya pada variabel akses internet dan IPM.
-2.  Melakukan statistika deskriptif untuk memetakan persebaran data digitalisasi dan kesejahteraan penduduk.
-3.  Membangun visualisasi data yang informatif untuk melihat tren sebaran antarvariabel secara grafis.
-4.  Menguji distribusi probabilitas (normalitas) pada data IPM wilayah.
-5.  Membuktikan secara statistik hipotesis korelasi antara penetrasi akses internet dengan skor IPM.
+1. Mengidentifikasi dan menangani *missing value* serta *outlier* pada dataset pembangunan wilayah, khususnya pada variabel akses internet dan IPM.
+2. Melakukan statistika deskriptif untuk memetakan persebaran data digitalisasi dan kesejahteraan penduduk.
+3. Membangun visualisasi data yang informatif untuk melihat tren sebaran antarvariabel secara grafis.
+4. Menguji distribusi probabilitas atau normalitas pada data IPM wilayah.
+5. Membuktikan secara statistik hipotesis korelasi antara penetrasi akses internet dengan skor IPM.
+
+## 1.4 Manfaat Analisis
+
+Analisis ini diharapkan dapat memberikan gambaran mengenai proses pengolahan dataset pembangunan wilayah menggunakan R, mulai dari pemeriksaan kualitas data, statistika deskriptif, visualisasi, pengujian distribusi, hingga analisis korelasi. Selain itu, hasil analisis ini dapat menjadi bahan awal untuk memahami apakah akses internet memiliki hubungan linear dengan IPM pada dataset yang digunakan.
 
 # BAB II: METODOLOGI
 
@@ -47,13 +91,18 @@ Penelitian ini menggunakan dataset `pembangunan_wilayah_missing_outlier.csv` yan
 
 ## 2.2 Tools yang Digunakan
 
-Seluruh tahapan pembersihan dan pengujian data dieksekusi menggunakan bahasa pemrograman **R**. Dokumen ini disusun menggunakan **Quarto**, sebuah sistem penerbitan saintifik yang memungkinkan integrasi narasi teks dan eksekusi kode (*reproducible research*) secara instan ke dalam format PDF. Pustaka tambahan seperti `ggplot2` diimplementasikan untuk membangun visualisasi grafis yang komprehensif.
+Seluruh tahapan pembersihan dan pengujian data dieksekusi menggunakan bahasa pemrograman **R**. R digunakan karena mendukung proses komputasi statistik, eksplorasi data, dan visualisasi secara sistematis (Field et al., 2012). Dokumen ini disusun menggunakan **Quarto**, yaitu sistem penulisan yang memungkinkan integrasi narasi, kode, dan output analisis dalam satu laporan yang dapat direproduksi. Pustaka tambahan seperti `ggplot2` digunakan untuk membangun visualisasi grafis yang lebih informatif.
 
 ## 2.3 Metode Analisis
 
 Pendekatan statistik yang diterapkan meliputi:
 
-- **Penanganan Data:** Imputasi data kosong diselesaikan menggunakan Median Imputation untuk meminimalisasi efek distorsi akibat nilai ekstrem. Karena fokus penelitian adalah menguji hubungan antara **akses internet dan IPM**, analisis selanjutnya dilakukan menggunakan data **hasil imputasi** tanpa menghapus observasi yang terindikasi sebagai nilai ekstrem.
+- **Penanganan Data:** Imputasi data kosong diselesaikan menggunakan Median Imputation. Metode ini dipilih karena median lebih tahan terhadap pengaruh nilai ekstrem atau outlier dibandingkan rata-rata, sehingga lebih sesuai digunakan ketika dataset memiliki potensi nilai ekstrem (Little & Rubin, 2019). Karena fokus penelitian adalah menguji hubungan antara **akses internet dan IPM**, analisis selanjutnya dilakukan menggunakan data hasil imputasi pada variabel utama tanpa menghapus observasi yang terindikasi sebagai nilai ekstrem.
+
+- **Statistika Deskriptif:** Analisis deskriptif digunakan untuk melihat karakteristik awal variabel akses internet dan IPM, seperti nilai minimum, maksimum, median, rata-rata, dan kuartil.
+- **Visualisasi Data:** Visualisasi digunakan untuk membantu membaca kondisi missing value, catatan kualitas data, pola hubungan, distribusi IPM, serta kemungkinan adanya nilai ekstrem.
+- **Uji Normalitas:** Uji Shapiro-Wilk digunakan untuk melihat apakah data IPM mendekati distribusi normal.
+- **Uji Korelasi:** Uji korelasi Pearson digunakan untuk melihat kekuatan dan arah hubungan linear antara akses internet dan IPM.
 
 # BAB III. HASIL DAN PEMBAHASAN
 
@@ -102,7 +151,7 @@ cat("\nJumlah NA Akses Internet setelah diolah:", sum(is.na(data$akses_internet)
 cat("Jumlah NA IPM setelah diolah:", sum(is.na(data$ipm)), "\n")
 ```
 
-Berdasarkan hasil pemeriksaan, missing value ditemukan pada beberapa variabel dalam dataset. Namun, karena analisis ini berfokus pada hubungan antara `akses internet` dan `IPM`, proses imputasi hanya dilakukan pada variabel akses_internet dan ipm. Nilai yang hilang pada kedua variabel tersebut digantikan menggunakan median masing-masing variabel sehingga data utama yang digunakan dalam analisis menjadi lengkap.
+Berdasarkan hasil pemeriksaan, missing value ditemukan pada beberapa variabel dalam dataset. Namun, karena analisis ini berfokus pada hubungan antara `akses_internet` dan `ipm`, proses imputasi hanya dilakukan pada kedua variabel tersebut. Nilai yang hilang pada variabel `akses_internet` dan `ipm` digantikan menggunakan median masing-masing variabel sehingga data utama yang digunakan dalam analisis menjadi lengkap.
 
 ### 3.2.2 Pemeriksaan Outlier
 
@@ -130,14 +179,88 @@ Ringkasan statistik menggambarkan karakteristik sebaran nilai akses internet dan
 
 ## 3.4 Visualisasi Data
 
-Visualisasi data digunakan untuk membantu melihat pola hubungan, bentuk distribusi, serta kemungkinan adanya nilai ekstrem pada variabel yang dianalisis. Pada bagian ini digunakan beberapa visualisasi, yaitu scatter plot, histogram, dan boxplot.
+Visualisasi data digunakan untuk membantu melihat kondisi missing value, catatan kualitas data, pola hubungan antarvariabel, bentuk distribusi, serta kemungkinan adanya nilai ekstrem pada variabel yang dianalisis. Pada bagian ini digunakan lima visualisasi, yaitu grafik missing value, grafik catatan data, scatter plot, histogram, dan boxplot.
 
-### 3.4.1 Scatter Plot Hubungan Akses Internet dan IPM
+### 3.4.1 Grafik Missing Value pada Setiap Variabel
+
+Grafik missing value digunakan untuk melihat jumlah nilai kosong pada setiap variabel dalam dataset. Visualisasi ini membantu menunjukkan variabel mana saja yang memiliki data tidak lengkap sebelum proses analisis dilakukan.
 
 ```{r}
+
 # Memanggil package ggplot2 untuk membuat visualisasi data
 library(ggplot2)
 
+# Membuat data jumlah missing value tiap variabel
+missing_df <- data.frame(
+  variabel = names(missing_semua_variabel),
+  jumlah = as.numeric(missing_semua_variabel)
+)
+
+# Membuat grafik missing value
+plot_missing <- ggplot(missing_df, aes(x = reorder(variabel, jumlah), y = jumlah)) +
+  geom_col(fill = "#3498db") +
+  coord_flip() +
+  labs(
+    title = "Jumlah Missing Value pada Setiap Variabel",
+    x = "Variabel",
+    y = "Jumlah Missing Value"
+  ) +
+  theme_minimal()
+
+# Menampilkan grafik pada laporan
+plot_missing
+
+# Menyimpan grafik ke dalam folder gambar
+ggsave(
+  filename = "../gambar/gambar_1_missing_value_variabel.png",
+  plot = plot_missing,
+  width = 8,
+  height = 4,
+  dpi = 300
+)
+```
+
+Berdasarkan Gambar 1, terlihat bahwa missing value tidak hanya terdapat pada variabel utama, tetapi juga muncul pada beberapa variabel lain dalam dataset. Grafik ini digunakan untuk melihat kondisi kelengkapan data secara umum. Namun, karena analisis difokuskan pada hubungan antara akses internet dan IPM, proses imputasi hanya dilakukan pada variabel `akses_internet` dan `ipm`.
+
+### 3.4.2 Grafik Jumlah Data Berdasarkan Catatan Data
+
+Grafik catatan data digunakan untuk melihat jumlah data berdasarkan kategori yang tersedia pada kolom `catatan_data`. Visualisasi ini membantu mengetahui berapa banyak data yang termasuk normal, missing value, maupun outlier.
+
+```{r}
+# Membuat data jumlah berdasarkan catatan_data
+catatan_df <- as.data.frame(table(data$catatan_data))
+colnames(catatan_df) <- c("catatan_data", "jumlah")
+
+# Membuat grafik catatan data
+plot_catatan <- ggplot(catatan_df, aes(x = catatan_data, y = jumlah)) +
+  geom_col(fill = "#e67e22") +
+  labs(
+    title = "Jumlah Data Berdasarkan Catatan Data",
+    x = "Catatan Data",
+    y = "Jumlah Data"
+  ) +
+  theme_minimal()
+
+# Menampilkan grafik pada laporan
+plot_catatan
+
+# Menyimpan grafik ke dalam folder gambar
+ggsave(
+  filename = "../gambar/gambar_2_catatan_data.png",
+  plot = plot_catatan,
+  width = 8,
+  height = 4,
+  dpi = 300
+)
+```
+
+Berdasarkan Gambar 2, sebagian besar data berada pada kategori normal, sedangkan sebagian kecil data memiliki catatan missing value dan outlier. Grafik ini menunjukkan bahwa dataset memang memiliki beberapa catatan kualitas data yang perlu diperhatikan. Pada penelitian ini, outlier tetap dipertahankan karena analisis difokuskan untuk melihat hubungan umum antara akses internet dan IPM.
+
+### 3.4.3 Scatter Plot Hubungan Akses Internet dan IPM
+
+Scatter plot digunakan untuk melihat pola hubungan antara tingkat akses internet dan IPM. Visualisasi ini membantu menunjukkan apakah kenaikan akses internet cenderung diikuti oleh kenaikan IPM atau tidak.
+
+```{r}
 # Membuat scatter plot hubungan akses internet dan IPM
 plot_scatter <- ggplot(data, aes(x = akses_internet, y = ipm)) +
   geom_point(color = "#2980b9", alpha = 0.5) +
@@ -154,7 +277,7 @@ plot_scatter
 
 # Menyimpan plot ke dalam folder gambar
 ggsave(
-  filename = "../gambar/scatter_akses_internet_ipm.png",
+  filename = "../gambar/gambar_3_scatter_akses_internet_ipm.png",
   plot = plot_scatter,
   width = 8,
   height = 4,
@@ -162,11 +285,11 @@ ggsave(
 )
 ```
 
-Berdasarkan Gambar 1, titik-titik data terlihat menyebar secara acak dan tidak membentuk pola naik atau turun yang jelas. Garis regresi pada grafik juga hampir datar, sehingga hubungan linear antara akses internet dan IPM belum terlihat kuat secara visual.
+Berdasarkan Gambar 3, titik-titik data terlihat menyebar secara acak dan tidak membentuk pola naik atau turun yang jelas. Garis regresi pada grafik juga hampir datar, sehingga hubungan linear antara akses internet dan IPM belum terlihat kuat secara visual.
 
 Dari visualisasi ini, dapat dikatakan bahwa wilayah dengan akses internet yang lebih tinggi tidak selalu memiliki IPM yang lebih tinggi dalam dataset ini. Oleh karena itu, hasil scatter plot perlu diperkuat dengan uji korelasi Pearson untuk mengetahui apakah hubungan kedua variabel signifikan secara statistik.
 
-### 3.4.2 Histogram Distribusi IPM
+### 3.4.4 Histogram Distribusi IPM
 
 Histogram digunakan untuk melihat bentuk distribusi nilai IPM pada dataset. Visualisasi ini membantu memberikan gambaran awal mengenai apakah data IPM cenderung menyebar secara normal atau tidak sebelum dilakukan uji normalitas.
 
@@ -186,20 +309,19 @@ plot_histogram_ipm
 
 # Menyimpan histogram IPM ke dalam folder gambar
 ggsave(
-  filename = "../gambar/histogram_ipm.png",
+  filename = "../gambar/gambar_4_histogram_ipm.png",
   plot = plot_histogram_ipm,
   width = 8,
   height = 4,
   dpi = 300
 )
-
 ```
 
-Berdasarkan Gambar 2, nilai IPM tersebar pada beberapa rentang nilai dan tidak sepenuhnya membentuk pola lonceng yang simetris. Hal ini menunjukkan bahwa distribusi IPM perlu diperiksa lebih lanjut sebelum digunakan dalam pengujian statistik.
+Berdasarkan Gambar 4, nilai IPM tersebar pada beberapa rentang nilai dan tidak sepenuhnya membentuk pola lonceng yang simetris. Hal ini menunjukkan bahwa distribusi IPM perlu diperiksa lebih lanjut sebelum digunakan dalam pengujian statistik.
 
 Histogram ini hanya digunakan sebagai gambaran awal untuk melihat bentuk sebaran data. Keputusan mengenai normal atau tidaknya distribusi IPM tetap didasarkan pada hasil uji Shapiro-Wilk pada bagian berikutnya.
 
-### 3.4.3 Boxplot Akses Internet dan IPM
+### 3.4.5 Boxplot Akses Internet dan IPM
 
 Boxplot digunakan untuk melihat sebaran data, nilai tengah, rentang data, serta kemungkinan adanya nilai ekstrem pada variabel akses internet dan IPM.
 
@@ -226,7 +348,7 @@ plot_boxplot
 
 # Menyimpan boxplot ke dalam folder gambar
 ggsave(
-  filename = "../gambar/boxplot_akses_internet_ipm.png",
+  filename = "../gambar/gambar_5_boxplot_akses_internet_ipm.png",
   plot = plot_boxplot,
   width = 8,
   height = 4,
@@ -234,6 +356,7 @@ ggsave(
 )
 ```
 
+Berdasarkan Gambar 5, boxplot menunjukkan sebaran nilai pada variabel akses internet dan IPM. Visualisasi ini membantu melihat nilai tengah, rentang data, serta kemungkinan adanya nilai ekstrem. Jika terdapat titik yang berada jauh dari kotak utama, maka titik tersebut dapat menjadi indikasi outlier. Namun, outlier tetap dipertahankan karena analisis ini berfokus pada hubungan umum antarvariabel, bukan pada penghapusan data ekstrem.
 
 ## 3.5 Uji Normalitas
 
@@ -253,9 +376,9 @@ Pada pengujian ini digunakan hipotesis sebagai berikut:
 - H1 : Data tidak berdistribusi normal.
 
 
-Berdasarkan hasil pengujian diperoleh nilai p-value \< 0,05 sehingga H0 ditolak. Dengan demikian, data IPM tidak berdistribusi normal.
+Berdasarkan hasil pengujian diperoleh nilai p-value < 0,05 sehingga H0 ditolak. Dengan demikian, data IPM tidak berdistribusi normal.
 
-Namun demikian, penelitian ini tetap menggunakan uji korelasi Pearson karena jumlah sampel yang digunakan sangat besar (sekitar 2.500 observasi). Pada ukuran sampel yang besar, penyimpangan kecil dari distribusi normal sering kali menyebabkan hasil uji Shapiro-Wilk menjadi signifikan. Oleh karena itu, uji Pearson masih digunakan untuk mengevaluasi kecenderungan hubungan linear antara kedua variabel.
+Namun demikian, jumlah sampel yang digunakan cukup besar, yaitu sekitar 2.500 observasi. Pada ukuran sampel yang besar, penyimpangan kecil dari distribusi normal sering kali membuat hasil uji normalitas menjadi signifikan secara statistik (Ghasemi & Zahediasl, 2012). Oleh karena itu, uji korelasi Pearson tetap digunakan untuk melihat kecenderungan hubungan linear antara akses internet dan IPM.
 
 ## 3.6 Uji Korelasi Pearson
 
@@ -280,20 +403,60 @@ Berdasarkan hasil pengujian diperoleh nilai koefisien korelasi (r) sebesar 0,002
 
 Nilai koefisien korelasi yang sangat mendekati nol menunjukkan bahwa hubungan linear antara akses internet dan IPM hampir tidak ada. Selain itu, nilai p-value yang jauh lebih besar dari 0,05 menunjukkan bahwa hubungan tersebut tidak signifikan secara statistik.
 
-Dengan demikian, H₀ tidak ditolak sehingga tidak terdapat bukti yang cukup untuk menyatakan adanya hubungan yang signifikan antara tingkat akses internet dan IPM pada dataset yang dianalisis.
+Dengan demikian, H0 tidak ditolak sehingga tidak terdapat bukti yang cukup untuk menyatakan adanya hubungan yang signifikan antara tingkat akses internet dan IPM pada dataset yang dianalisis.
 
 Hasil ini menunjukkan bahwa akses internet tidak memiliki hubungan linear yang signifikan dengan IPM pada dataset yang dianalisis. Dengan demikian, variasi IPM tidak dapat dijelaskan hanya melalui variabel akses internet. Faktor lain seperti pendidikan, pendapatan, layanan kesehatan, atau indikator pembangunan lainnya dapat menjadi bahan pertimbangan untuk analisis lanjutan, tetapi tidak diuji secara langsung dalam penelitian ini.
 
-## 3.7 Ringkasan Hasil Analisis
+# BAB IV: KESIMPULAN
 
-Berdasarkan seluruh tahapan analisis yang telah dilakukan, diperoleh beberapa temuan utama sebagai berikut:
+## 4.1 Kesimpulan Utama
+
+Berdasarkan seluruh tahapan analisis yang telah dilakukan, diperoleh beberapa kesimpulan utama sebagai berikut:
 
 1. Pemeriksaan awal menunjukkan adanya missing value pada beberapa variabel dalam dataset.
-2. Karena fokus analisis adalah akses internet dan IPM, imputasi missing value dilakukan pada variabel akses_internet dan ipm menggunakan median.
-3. Pemeriksaan outlier dilakukan melalui kolom catatan_data dan didukung dengan visualisasi boxplot.
-4. Scatter plot menunjukkan bahwa hubungan antara akses internet dan IPM tidak membentuk pola linear yang kuat.
-5. Histogram IPM menunjukkan bahwa distribusi data perlu diperiksa lebih lanjut melalui uji normalitas.
-6. Hasil uji Shapiro-Wilk menunjukkan bahwa data IPM tidak berdistribusi normal.
-7. Hasil uji korelasi Pearson menghasilkan koefisien korelasi sebesar 0,0021 dengan p-value sebesar 0,916, sehingga tidak ditemukan hubungan linear yang signifikan antara akses internet dan IPM.
+2. Karena fokus analisis adalah akses internet dan IPM, imputasi missing value dilakukan pada variabel `akses_internet` dan `ipm` menggunakan median.
+3. Pemeriksaan outlier dilakukan melalui kolom `catatan_data` dan didukung dengan visualisasi boxplot.
+4. Lima visualisasi data telah dibuat untuk membantu membaca kondisi missing value, catatan data, hubungan antarvariabel, distribusi IPM, dan sebaran nilai ekstrem.
+5. Scatter plot menunjukkan bahwa hubungan antara akses internet dan IPM tidak membentuk pola linear yang kuat.
+6. Histogram IPM menunjukkan bahwa distribusi data perlu diperiksa lebih lanjut melalui uji normalitas.
+7. Hasil uji Shapiro-Wilk menunjukkan bahwa data IPM tidak berdistribusi normal.
+8. Hasil uji korelasi Pearson menghasilkan koefisien korelasi sebesar 0,0021 dengan p-value sebesar 0,916, sehingga tidak ditemukan hubungan linear yang signifikan antara akses internet dan IPM.
 
-Secara keseluruhan, hasil analisis menunjukkan bahwa tingkat akses internet tidak memiliki hubungan linear yang signifikan dengan IPM pada dataset yang digunakan. Oleh karena itu, variasi IPM kemungkinan tidak hanya dipengaruhi oleh akses internet, tetapi juga oleh faktor pembangunan lain yang lebih luas.
+## 4.2 Insight
+
+Hasil analisis menunjukkan bahwa akses internet belum cukup kuat untuk menjelaskan variasi IPM secara linear pada dataset ini. Artinya, wilayah dengan akses internet yang lebih tinggi tidak selalu memiliki nilai IPM yang lebih tinggi. Temuan ini menunjukkan bahwa pembangunan manusia tidak dapat dilihat hanya dari satu indikator digital, tetapi perlu mempertimbangkan indikator lain seperti pendidikan, kesehatan, ekonomi, dan infrastruktur.
+
+## 4.3 Saran
+
+Untuk analisis lanjutan, disarankan menggunakan lebih banyak variabel pembangunan seperti tingkat kemiskinan, pengangguran, PDRB per kapita, rata-rata lama sekolah, harapan hidup, akses air bersih, dan kondisi jalan baik. Analisis lanjutan juga dapat menggunakan korelasi antar banyak variabel atau model regresi agar faktor-faktor yang berhubungan dengan IPM dapat dipahami secara lebih luas.
+
+# DAFTAR PUSTAKA
+
+Badan Pusat Statistik. (2023). *Indeks Pembangunan Manusia 2023*. Badan Pusat Statistik Republik Indonesia.
+
+Field, A., Miles, J., & Field, Z. (2012). *Discovering Statistics Using R*. SAGE Publications.
+
+Ghasemi, A., & Zahediasl, S. (2012). Normality tests for statistical analysis: A guide for non-statisticians. *International Journal of Endocrinology and Metabolism, 10*(2), 486–489.
+
+Little, R. J. A., & Rubin, D. B. (2019). *Statistical Analysis with Missing Data* (3rd ed.). John Wiley & Sons.
+
+Ndubuisi, G., Otioma, C., & Tetteh, G. K. (2021). Digital infrastructure and human development. *Telecommunications Policy, 45*(8), 102154.
+
+United Nations Development Programme. (2022). *Human Development Report 2021/2022: Uncertain Times, Unsettled Lives*. United Nations Development Programme.
+
+# LAMPIRAN
+
+Lampiran berisi file pendukung yang digunakan dalam penyusunan laporan proyek akhir ini.
+
+1. Script R disimpan pada folder `script`.
+2. Dataset disimpan pada folder `dataset`.
+3. Hasil visualisasi disimpan pada folder `gambar`.
+4. Laporan akhir dalam format `.qmd` dan `.pdf` disimpan pada folder `dokumen`.
+
+Adapun hasil visualisasi yang disimpan pada folder `gambar` adalah:
+
+1. `gambar_1_missing_value_variabel.png`
+2. `gambar_2_catatan_data.png`
+3. `gambar_3_scatter_akses_internet_ipm.png`
+4. `gambar_4_histogram_ipm.png`
+5. `gambar_5_boxplot_akses_internet_ipm.png`
