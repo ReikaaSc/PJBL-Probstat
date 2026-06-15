@@ -211,3 +211,4 @@ cat("\nRingkasan hasil:\n")
 cat("Koefisien korelasi:", korelasi_test$estimate, "\n")
 cat("P-value korelasi:", korelasi_test$p.value, "\n")
 cat("P-value normalitas:", shapiro_test$p.value, "\n")
+
